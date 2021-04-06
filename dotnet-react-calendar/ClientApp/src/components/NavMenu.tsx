@@ -3,7 +3,15 @@ import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLi
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
 
-export class NavMenu extends Component {
+interface IProps {
+
+}
+
+interface IState {
+    collapsed: boolean;
+}
+
+export class NavMenu extends Component<IProps, IState> {
   static displayName = NavMenu.name;
 
   constructor (props) {
@@ -32,9 +40,6 @@ export class NavMenu extends Component {
               <ul className="navbar-nav flex-grow">
                 <NavItem>
                   <NavLink tag={Link} className="text-dark" to="/">Home</NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/counter">Counter</NavLink>
                 </NavItem>
                 <NavItem>
                   <NavLink tag={Link} className="text-dark" to="/fetch-data">Fetch data</NavLink>
