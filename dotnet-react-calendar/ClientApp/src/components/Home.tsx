@@ -1,14 +1,76 @@
 import React, { Component } from 'react';
+import "./Home.css";
 
-export class Home extends Component {
-  static displayName = Home.name;
+interface IProps {
 
-  render () {
+}
+
+interface IState {
+    currentWeek: Date[];
+    currentMonth: string;
+}
+
+export class Home extends Component<IProps, IState> {
+    static displayName = Home.name;
+
+    constructor(props) {
+        super(props);
+        this.state = {currentWeek: [], currentMonth: ""};
+    }
+
+    componentDidMount() {
+        this.populateWeekdays();
+    }
+
+    render () {
     return (
-      <div>
+        <div>
         <h1>Weather Forecast</h1>
-        <p></p>
-      </div>
+            <h3>{this.state.currentMonth}</h3>
+            <table className="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Sunday</th>
+                        <th>Monday</th>
+                        <th>Tuesday</th>
+                        <th>Wednesday</th>
+                        <th>Thursday</th>
+                        <th>Friday</th>
+                        <th>Saturday</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    {this.state.currentWeek.map(day =>
+                            <td>{day.getDate()}</td>
+                        )}
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     );
-  }
+    }
+
+    populateWeekdays(): void {
+        let dates: Date[] = [];
+        let date = new Date(Date.now());
+
+        // add days before today from Sunday
+        for (let i = 0; i < date.getUTCDay(); i++) {
+            let temp = new Date(date);
+            temp.setDate((temp.getUTCDate() - date.getUTCDay()) + i);
+            dates.push(temp);
+        }
+
+        // add days after today to Saturday
+        for (let i = date.getUTCDay(); i < 7; i++) {
+            let temp = new Date(date);
+            temp.setDate(temp.getUTCDate() + (i - date.getUTCDay()));
+            dates.push(temp);
+        }
+        this.setState({
+            currentWeek: dates,
+            currentMonth: date.toLocaleString('default', { month: 'long' })
+        });
+    }
 }
