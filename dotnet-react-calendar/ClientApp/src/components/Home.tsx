@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Cell } from './Cell';
 import "./Home.css";
 
 interface IProps {
@@ -42,7 +43,7 @@ export class Home extends Component<IProps, IState> {
                 <tbody>
                     <tr>
                     {this.state.currentWeek.map(day =>
-                            <td>{day.getDate()}</td>
+                        <td><Cell day={day} /></td>
                         )}
                     </tr>
                 </tbody>
@@ -56,9 +57,9 @@ export class Home extends Component<IProps, IState> {
         let date = new Date(Date.now());
 
         // add days before today from Sunday
-        for (let i = 0; i < date.getUTCDay(); i++) {
+        for (let i = date.getUTCDay(); i > 0 ; i--) {
             let temp = new Date(date);
-            temp.setDate((temp.getUTCDate() - date.getUTCDay()) + i);
+            temp.setDate(temp.getUTCDate() - i);
             dates.push(temp);
         }
 
