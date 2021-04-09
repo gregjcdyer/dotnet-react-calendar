@@ -1,4 +1,5 @@
 ﻿import React, { Component } from "react";
+import "./Cell.css";
 
 interface IProps {
     day: Date;
@@ -24,7 +25,17 @@ export class Cell extends Component<IProps, IState> {
         let content = this.state.isToday ? <b>{this.props.day.getDate()}</b> : this.props.day.getDate();
         return (
             <div>
-                {content}
+                <div>
+                    {content}
+                </div>
+                <div>
+                    <ul>
+                        <li>Sunrise: </li>
+                        <li>Sunset: </li>
+                        <li>Moonrise: </li>
+                        <li>Moonset: </li>
+                    </ul>
+                </div>
             </div>
         )
     }

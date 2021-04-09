@@ -2,3 +2,19 @@
     width: 4em;
     height: 4em;
 }
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+}
+
+.grid-header {
+    font-weight: bold;
+    border: 1px solid #555;
+    padding: 5px;
+}
+
+.grid-item {
+    border: 1px solid #555;
+    padding: 5px;
+}
