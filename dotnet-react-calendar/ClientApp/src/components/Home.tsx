@@ -69,7 +69,7 @@ export class Home extends Component<IProps, IState> {
                 <div className="grid-header">Saturday</div>
 
                 {this.state.days.map((day, index) =>
-                    <div className="grid-item"><Cell day={day} month={this.state.currentMonth}/></div>
+                    <div className="grid-item" key={day.getTime()}><Cell day={day} month={this.state.currentMonth}/></div>
                     )}
             </div>
         </div>
@@ -99,7 +99,6 @@ export class Home extends Component<IProps, IState> {
             for (let i = date.getDay(); i < 7; i++) {
                 let temp = new Date(date);
                 temp.setDate(temp.getDate() + (i - date.getDay()));
-                console.log(temp);
                 dates.push(temp);
             }
 
@@ -107,7 +106,7 @@ export class Home extends Component<IProps, IState> {
 
             // check the first day of the next week to check if it's still in current month
             let temp = new Date(date.setDate(date.getDate() - date.getDay()));
-            if (date.getMonth() != this.state.currentMonth.getMonth() && temp.getMonth() != this.state.currentMonth.getMonth()) {
+            if (date.getMonth() !== this.state.currentMonth.getMonth() && temp.getMonth() !== this.state.currentMonth.getMonth()) {
                 nextMonthFlag = true;
             }
         }
