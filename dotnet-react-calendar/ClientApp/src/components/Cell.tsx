@@ -19,24 +19,22 @@ export class Cell extends Component<IProps, IState> {
 
     componentDidUpdate(prevProps: IProps) {
         if (prevProps.day !== this.props.day) {
-            let date = new Date(Date.now());
-            date.setHours(0, 0, 0, 0);
-
-            let temp = this.props.day;
-            temp.setHours(0, 0, 0, 0);
-
-            this.setState({ isToday: temp.getTime() === date.getTime(), day: this.props.day });
+            this.setState({ isToday: this.isToday(), day: this.props.day });
         }
     }
 
     componentDidMount() {
+        this.setState({ isToday: this.isToday() });
+    }
+
+    isToday(): boolean {
         let date = new Date(Date.now());
         date.setHours(0, 0, 0, 0);
 
         let temp = this.props.day;
         temp.setHours(0, 0, 0, 0);
 
-        this.setState({ isToday: temp.getTime() === date.getTime() });
+        return temp.getTime() === date.getTime();
     }
 
 
