@@ -3,32 +3,54 @@ import "./Cell.css";
 
 interface IProps {
     day: Date;
+    month: Date;
 }
 
 interface IState {
     isToday: boolean;
+    day: Date;
 }
 
 export class Cell extends Component<IProps, IState> {
     constructor(props) {
         super(props);
-        this.state = { isToday: false };
+        this.state = { isToday: false, day: this.props.day };
+    }
+
+    componentDidUpdate(prevProps: IProps) {
+        if (prevProps.day !== this.props.day) {
+            let date = new Date(Date.now());
+            date.setHours(0, 0, 0, 0);
+
+            let temp = this.props.day;
+            temp.setHours(0, 0, 0, 0);
+
+            this.setState({ isToday: temp.getTime() === date.getTime(), day: this.props.day });
+        }
     }
 
     componentDidMount() {
         let date = new Date(Date.now());
+        date.setHours(0, 0, 0, 0);
 
-        this.setState({ isToday: this.props.day.getUTCDate() === date.getUTCDate() });
+        let temp = this.props.day;
+        temp.setHours(0, 0, 0, 0);
+
+        this.setState({ isToday: temp.getTime() === date.getTime() });
     }
+
 
     render() {
         let content = this.state.isToday ? <b>{this.props.day.getDate()}</b> : this.props.day.getDate();
+        let currentMonth = this.props.day.getMonth() === this.props.month.getMonth() ? true : false;
+        let className = currentMonth ? "current-month" : "inactive-month";
+
         return (
-            <div>
-                <div>
+            <div key={this.props.day.getDate()}>
+                <div className={className}>
                     {content}
                 </div>
-                <div>
+                <div className={currentMonth ? "" : "hidden"}>
                     <ul>
                         <li>Sunrise: </li>
                         <li>Sunset: </li>

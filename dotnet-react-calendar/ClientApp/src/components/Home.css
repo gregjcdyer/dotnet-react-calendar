@@ -18,3 +18,24 @@
     border: 1px solid #555;
     padding: 5px;
 }
+
+.month-left {
+    display: block;
+    text-align: right;
+}
+
+.month-right {
+    display: block;
+    text-align: left;
+}
+
+.month-center {
+    text-align: center;
+}
+
+.month-left:hover {
+    cursor: pointer;
+}
+.month-right:hover {
+    cursor: pointer;
+}
