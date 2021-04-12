@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31112.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotnet-react-calendar", "dotnet-react-calendar\dotnet-react-calendar.csproj", "{56517467-D9BB-477E-86DE-84AA8E739661}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dotnet-react-calendar", "dotnet-react-calendar\dotnet-react-calendar.csproj", "{56517467-D9BB-477E-86DE-84AA8E739661}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotnet-react-calendar-test", "dotnet-react-calendar-test\dotnet-react-calendar-test.csproj", "{3ECC9C1E-1FDA-4C5E-8A26-59D8DBB31ED3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{56517467-D9BB-477E-86DE-84AA8E739661}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56517467-D9BB-477E-86DE-84AA8E739661}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56517467-D9BB-477E-86DE-84AA8E739661}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3ECC9C1E-1FDA-4C5E-8A26-59D8DBB31ED3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3ECC9C1E-1FDA-4C5E-8A26-59D8DBB31ED3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3ECC9C1E-1FDA-4C5E-8A26-59D8DBB31ED3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3ECC9C1E-1FDA-4C5E-8A26-59D8DBB31ED3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
