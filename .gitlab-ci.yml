@@ -10,10 +10,10 @@ variables:
   container_image: "https://gitlab.gregdyer.ca/homelab/dotnet-react-calendar:latest"
 
 .dotnet_common: &dotnet_common |
-  - "dotnet restore"
-  - "curl -sL https://deb.nodesource.com/setup_10.x | bash -"
-  - "apt-get install -y nodejs"
-  - "npm install -g react"
+  "dotnet restore"
+  "curl -sL https://deb.nodesource.com/setup_10.x | bash -"
+  "apt-get install -y nodejs"
+  "npm install -g react"
 
 build:
   stage: build
