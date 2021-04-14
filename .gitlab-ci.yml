@@ -9,7 +9,7 @@ variables:
   project: "dotnet-react-calendar"
   container_image: "https://gitlab.gregdyer.ca/homelab/dotnet-react-calendar:latest"
 
-before_script:
+.dotnet_common: &dotnet_common |
   - "dotnet restore"
   - "curl -sL https://deb.nodesource.com/setup_10.x | bash -"
   - "apt-get install -y nodejs"
@@ -20,17 +20,20 @@ build:
   variables:
     build_path: "$project"
   script:
+    - *dotnet_common
     - "cd $build_path"
-    - "dotnet build"
+    - "dotnet build -o ../artifacts/$project"
   artifacts:
+    name: "$project-$CI_COMMIT_TAG"
     paths:
-      - bin/Release/net5.0/publish
+      - artifacts/$project
 
 test:
   stage: test
   variables:
     test_path: "$project-test"
   script:
+    - *dotnet_common
     - "cd $test_path"
     - "dotnet test"
 
