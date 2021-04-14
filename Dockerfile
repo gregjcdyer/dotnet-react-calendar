@@ -1,4 +1,4 @@
-COPY bin/Release/net5.0/publish/ App/
+COPY artifacts/dotnet-react-calendar App/
 WORKDIR /App
 EXPOSE 80
 ENTRYPOINT ["dotnet", "dotnet-react-calendar.dll"]
