@@ -40,7 +40,7 @@ test:
 docker:
   stage: docker
   image:
-    name: gcr.io/kaniko-project/executor:latest
+    name: gcr.io/kaniko-project/executor:debug
     entrypoint: [""]
   script:
     - mkdir -p /kaniko/.docker
