@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: calendar
+  namespace: web
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      workload.user.cattle.io/workloadselector: deployment-web-calendar
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        deploy-date: "deploy-date-value"
+      labels:
+        workload.user.cattle.io/workloadselector: deployment-web-calendar

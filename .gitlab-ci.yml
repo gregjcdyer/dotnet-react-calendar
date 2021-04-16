@@ -2,10 +2,11 @@ stages:
   - test
   - build
   - docker
+  - deploy
 
 variables:
-  project: "dotnet-react-calendar"
-  container_image: "https://gitlab.gregdyer.ca/homelab/dotnet-react-calendar:latest"
+  PROJECT: "dotnet-react-calendar"
+  KUBECONFIG: /root/.kube/config
 
 .dotnet_common: &dotnet_common
   - "dotnet restore"
@@ -17,21 +18,21 @@ build:
   stage: build
   image: mcr.microsoft.com/dotnet/sdk:5.0
   variables:
-    build_path: "$project"
+    build_path: "$PROJECT"
   script:
     - *dotnet_common
     - "cd $build_path"
-    - "dotnet publish -o ../artifacts/$project"
+    - "dotnet publish -o ../artifacts/$PROJECT"
   artifacts:
-    name: "$project-$CI_COMMIT_TAG"
+    name: "$PROJECT-$CI_COMMIT_TAG"
     paths:
-      - artifacts/$project
+      - artifacts/$projPROJECTect
 
 test:
   stage: test
   image: mcr.microsoft.com/dotnet/sdk:5.0
   variables:
-    test_path: "$project-test"
+    test_path: "$PROJECT-test"
   script:
     - *dotnet_common
     - "cd $test_path"
@@ -46,5 +47,15 @@ docker:
     - mkdir -p /kaniko/.docker
     - echo $DOCKER_REGISTRY_USERNAME
     - echo "{\"auths\":{\"$DOCKER_REGISTRY_URL\":{\"auth\":\"$DOCKER_REGISTRY_AUTH\"}}}" > /kaniko/.docker/config.json
-    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile --destination $DOCKER_REGISTRY_URL/$project:$CI_COMMIT_TAG
-    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile --destination $DOCKER_REGISTRY_URL/$project:latest
+    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile --destination $DOCKER_REGISTRY_URL/$proPROJECTject:$CI_COMMIT_TAG
+    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile --destination $DOCKER_REGISTRY_URL/$PROJECT:latest
+
+deploy:
+  image: dtzar/helm-kubectl
+  stage: deploy
+  before_script:
+    - sed -ie "s/deploy-date-value/$(date)/g" kubernetes/deployment.yaml
+    - mkdir -p /root/.kube/ && touch /root/.kube/config
+    - echo ${KUBERNETES_KUBE_CONFIG} | base64 -d > ${KUBECONFIG}
+  script:
+    - kubectl apply -f kubernetes/deployment.yaml
