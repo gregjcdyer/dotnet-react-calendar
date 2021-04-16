@@ -21,7 +21,7 @@ build:
   script:
     - *dotnet_common
     - "cd $build_path"
-    - "dotnet build -o ../artifacts/$project"
+    - "dotnet publish -o ../artifacts/$project"
   artifacts:
     name: "$project-$CI_COMMIT_TAG"
     paths:
