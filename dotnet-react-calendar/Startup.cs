@@ -1,6 +1,7 @@
+using dotnet_react_calendar.Services;
+using dotnet_react_calendar.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,6 +29,12 @@ namespace dotnet_react_calendar
             {
                 configuration.RootPath = "ClientApp/build";
             });
+
+            var hereApiSettings = Configuration.GetSection("HereApiSettings");
+
+            services.Configure<HereApiSettings>(hereApiSettings);
+
+            services.AddHttpClient<HereApiService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

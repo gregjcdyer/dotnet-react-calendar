@@ -8,6 +8,7 @@
     <SpaRoot>ClientApp\</SpaRoot>
     <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
     <RootNamespace>dotnet_react_calendar</RootNamespace>
+    <UserSecretsId>c89dbec1-684c-4b1b-9c79-ddcdca79a7e0</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

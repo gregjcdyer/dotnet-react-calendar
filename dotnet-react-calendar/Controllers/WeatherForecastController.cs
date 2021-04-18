@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using dotnet_react_calendar.Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -17,10 +18,12 @@ namespace dotnet_react_calendar.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly HereApiService _hereApiService;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, HereApiService hereApiService)
         {
             _logger = logger;
+            _hereApiService = hereApiService;
         }
 
         [HttpGet]
@@ -34,6 +37,14 @@ namespace dotnet_react_calendar.Controllers
                 Summary = Summaries[rng.Next(Summaries.Length)]
             })
             .ToArray();
+        }
+
+        [HttpGet("astronomy/{location}")]
+        public async Task<IActionResult> GetAstronomy(string location)
+        {
+            var result = await _hereApiService.GetAstronomy(location);
+
+            return Ok(result);
         }
     }
 }
